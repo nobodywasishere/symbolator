@@ -388,18 +388,18 @@ def parse_args():
   '''Parse command line arguments'''
   parser = argparse.ArgumentParser(description='HDL symbol generator')
   parser.add_argument('-i', '--input', dest='input', action='store', help='HDL source ("-" for STDIN)')
-  parser.add_argument('-o', '--output', dest='output', action='store', help='Output file')
-  parser.add_argument('-f', '--format', dest='format', action='store', default='svg', help='Output format')
+  parser.add_argument('-o', '--output', dest='output', action='store', help='Output folder (output file for STDIN)')
+  parser.add_argument('-f', '--format', dest='format', action='store', default='svg', help='Output format (default svg)')
   parser.add_argument('-L', '--library', dest='lib_dirs', action='append',
     default=['.'], help='Library path')
   parser.add_argument('-s', '--save-lib', dest='save_lib', action='store', help='Save type def cache file')
   parser.add_argument('-t', '--transparent', dest='transparent', action='store_true',
-    default=False, help='Transparent background')
+    default=False, help='Enable transparent background')
   parser.add_argument('--scale', dest='scale', action='store', default='1', help='Scale image')
-  parser.add_argument('--title', dest='title', action='store_true', default=False, help='Add component name above symbol')
+  parser.add_argument('--title', dest='title', action='store_true', default=False, help='Enable component name above symbol')
   parser.add_argument('--no-type', dest='no_type', action='store_true', default=False, help='Omit pin type information')
   parser.add_argument('-v', '--version', dest='version', action='store_true', default=False, help='Symbolator version')
-  parser.add_argument('--libname', dest='libname', action='store', default='', help='Add libname above cellname, and move component name to bottom. Works only with --title')
+  parser.add_argument('--libname', dest='libname', action='store', default='', help='Add LIBNAME to top and move component name to bottom, only works with --title')
 
   args, unparsed = parser.parse_known_args()
 
@@ -571,7 +571,7 @@ def main():
       else:
         base = os.path.splitext(os.path.basename(source))[0]
         fname = '{}{}.{}'.format(
-            args.libname + "__" if args.libname is not None else "",
+            args.libname + "-" if args.libname != "" else base + "-",
             comp.name,
             args.format)
         if args.output:
