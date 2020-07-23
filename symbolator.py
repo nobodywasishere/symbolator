@@ -18,7 +18,7 @@ import hdlparse.verilog_parser as vlog
 from hdlparse.vhdl_parser import VhdlComponent
 from hdlparse.vhdl_parser import VhdlEntity
 
-__version__ = '1.0.2'
+__version__ = '1.0.3'
 
 
 def xml_escape(txt):
