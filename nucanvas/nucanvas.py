@@ -29,9 +29,9 @@ class NuCanvas(GroupShape):
       shapes = [s for s in self.shapes if s.is_tagged(item)]
     return shapes
 
+  def render(self, transparent):
+    self.surf.render(self, transparent)
 
-  def render(self):
-    self.surf.render(self)
 
   def add_marker(self, name, shape, ref=(0,0), orient='auto', units='stroke'):
     self.markers[name] = (shape, ref, orient, units)
